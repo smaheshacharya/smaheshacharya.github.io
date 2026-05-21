@@ -279,14 +279,27 @@ function openEditor(row, isNew) {
 // ── Field rendering ────────────────────────────────────────────
 
 function renderForm(def, row, isNew) {
+  const canPreview = currentTab === 'posts' && !!row.slug;
+  const status = currentTab === 'posts'
+    ? (row.is_published ? '<span class="post-status post-status--live">Published</span>'
+                        : '<span class="post-status post-status--draft">Draft — not public</span>')
+    : '';
   return `
     <form class="admin-form" data-form>
-      <h4 class="admin-form__title">${isNew ? 'New' : 'Edit'} ${esc(def.singular)}</h4>
+      <h4 class="admin-form__title">
+        ${isNew ? 'New' : 'Edit'} ${esc(def.singular)} ${status}
+      </h4>
       ${def.fields.map(f => renderField(f, row[f.name])).join('')}
       <div class="admin-form__actions">
         <button type="submit" class="btn btn--primary">${isNew ? 'Create' : 'Save'}</button>
+        ${canPreview ? `<a class="btn btn--ghost" href="#/blog/${encodeURIComponent(row.slug)}" target="_blank" rel="noopener">Preview ↗</a>` : ''}
         <button type="button" class="btn btn--ghost" data-action="cancel">Cancel</button>
       </div>
+      ${canPreview
+        ? `<small class="admin-field__hint">Preview opens the saved version in a new tab — Save first to see your latest edits. Drafts show only to you.</small>`
+        : (currentTab === 'posts' && isNew
+            ? `<small class="admin-field__hint">Leave “Published” unchecked to keep this as a draft. Create it, then use Preview to review before publishing.</small>`
+            : '')}
       <p class="admin-msg" data-msg aria-live="polite"></p>
     </form>
   `;

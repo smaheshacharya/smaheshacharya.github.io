@@ -1189,14 +1189,6 @@ ul { list-style: none; }
 .muted { color: var(--clr-muted); }
 .container--narrow { max-width: 760px; margin: 0 auto; padding: 0 24px; }
 
-/* Nav admin link */
-.nav__admin {
-  border: 1px solid var(--clr-border);
-  padding: 4px 10px !important;
-  border-radius: 999px;
-  font-size: 0.78rem !important;
-}
-
 /* Post title link inside li-post */
 .li-post__title {
   font-size: 1.15rem;
@@ -1384,6 +1376,15 @@ ul { list-style: none; }
 .admin-msg--ok    { color: var(--clr-green); }
 .admin-msg--error { color: #f87171; }
 
+/* Post status pill in the editor heading */
+.post-status {
+  font-size: 0.64rem; font-weight: 700; padding: 3px 9px;
+  border-radius: 999px; text-transform: uppercase; letter-spacing: 0.05em;
+  vertical-align: middle; margin-left: 6px;
+}
+.post-status--live  { background: rgba(52,211,153,0.15);  color: var(--clr-green); }
+.post-status--draft { background: rgba(251,146,60,0.15);  color: var(--clr-orange); }
+
 /* Markdown editor with side preview */
 .md-editor {
   display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
@@ -1495,7 +1496,7 @@ ul { list-style: none; }
 .li-card:hover .li-card__title { color: var(--clr-accent2); }
 .li-card__excerpt {
   font-size: 0.9rem; color: var(--clr-muted); line-height: 1.65;
-  display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;
+  display: -webkit-box; -webkit-line-clamp: 10; -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
